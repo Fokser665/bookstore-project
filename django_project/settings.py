@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     "crispy_bootstrap5",
     "allauth",
     "allauth.account",
+    "debug_toolbar",
     # Local
     "accounts.apps.AccountsConfig",
     "pages.apps.PagesConfig",
@@ -62,6 +63,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "debug_toolbar.middleware.DebugToolbarMiddleware",
 ]
 
 ROOT_URLCONF = "django_project.urls"
@@ -174,3 +176,9 @@ DEBUG = env.bool("DJANGO_DEBUG")
 ALLOWED_HOSTS = [".herokuapp.com", "localhost", "127.0.0.1"]
 
 DEFAULT_FROM_EMAIL = "admin@djangobookstore.com"
+
+# django-debug-toolbar
+import socket
+
+hostname, _, ips = socket.gethostbyname_ex(socket.gethostname())
+INTERNAL_IPS = [ip[:-1] + "1" for ip in ips]
